@@ -25,7 +25,10 @@ class preprocess_image():
         filelist.remove('1_0_0.png')
 
         for i in range(len(filelist)):
-            band = rgb2gray(imread(filelist[i]))
+            #band = rgb2gray(imread(filelist[i]))
+            band = imread(filelist[i])
+            #get first band 
+            band = band[:,:,0]
             if i==0:
                 outimage = band
             else:
