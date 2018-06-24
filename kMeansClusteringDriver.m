@@ -4,46 +4,16 @@
 % 956-270-0385
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%Band1 to Band244 == 540nm to 1755nm 
+%every hyperspectral image is 5 nm
+%NDVI = (NIR - VIS) / (NIR + VIS)
+% 770nm = NIR
+% 680nm = VIS
+
 clear all;
 
-background = imread('images/input/6-13-17cotton/613-200-20/2017-07-05_06-23-34_1744600/122_0_0.png');
+plantIndex = '613-182-02';
+timestamp = '2017-07-06_07-24-44_1807600';
+k = 3;
 
-%E2: P1 control, 11 July, band 122
-% he = imread('images/input/6-13-17cotton/613-181-01/2017-07-11_07-03-13_2041000/122_0_0.png');
-%E2: P2 stressed, 11 July, band 122
-he = imread('images/input/6-13-17cotton/613-182-02/2017-07-11_07-01-04_2040900/122_0_0.png');
-
-% subtraction = imsubtract(he, background);
-subtraction = he(:,:,2) - background(:,:,2);
-ab = subtraction;
-nrows = size(ab, 1);
-ncols = size(ab, 2);
-ab = reshape(ab, nrows*ncols,1);
-nColors=3;
-
-% lab_he = rgb2lab(he); % convert to L*a*b* color space
-% ab = lab_he(:,:, 2:3);
-% nrows = size(ab, 1);
-% ncols = size(ab, 2);
-% ab = reshape(ab, nrows*ncols,2);
-% nColors=3;
-
-[cluster_idx, cluster_center] = kmeans(ab,nColors,'distance','sqEuclidean', ...
-                                      'Replicates',3);
-                                 
-pixel_labels = reshape(cluster_idx,nrows,ncols);
-imshowpair(he, pixel_labels, 'montage');
-title('image labeled by cluster index');
-
-segmented_images = cell(1,3);
-rgb_label = repmat(pixel_labels,[1 1 3]);
-for k = 1:nColors
-    color = he;
-    color(rgb_label ~= k) = 0;
-    segmented_images{k} = color;
-end
-imshow(segmented_images{1}), title('objects in cluster 1');
-imshow(segmented_images{2}), title('objects in cluster 2');
-imshow(segmented_images{3}), title('objects in cluster 3');
-
-
+kMeansClustering(plantIndex, timestamp, k);
