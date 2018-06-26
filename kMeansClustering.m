@@ -5,7 +5,9 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-function [sumd] = kMeansClustering(plantIndex, timestamp, k)
+function [sumd, cluster1Count, cluster2Count, cluster3Count, ...
+    cluster4Count, cluster5Count, cluster6Count] = ...
+    kMeansClustering(plantIndex, timestamp, k)
 
     % defining NIRPath
     NIRPath = strcat ('images/input/6-13-17cotton/', plantIndex );
@@ -48,7 +50,7 @@ function [sumd] = kMeansClustering(plantIndex, timestamp, k)
     DirectoryPath = strcat (DirectoryPath, timestamp );
     %%%
     
-    % creating algo final
+    % creating algo final picture
     pixel_labels = reshape(cluster_idx,nrows,ncols);
     h = figure;
     set(h, 'Visible', 'off');
@@ -58,7 +60,18 @@ function [sumd] = kMeansClustering(plantIndex, timestamp, k)
     saveas(h, whereToStore);
     %%%
     
-    % needed for final image
+    % extracting pixel count
+    for i=2:6
+        cluster1Count = sum(pixel_labels(:) == 1);
+        cluster2Count = sum(pixel_labels(:) == 2);
+        cluster3Count = sum(pixel_labels(:) == 3);
+        cluster4Count = sum(pixel_labels(:) == 4);
+        cluster5Count = sum(pixel_labels(:) == 5);
+        cluster6Count = sum(pixel_labels(:) == 6);
+    end
+    %%%
+    
+    % processing needed for final image 
     segmented_images = cell(1,3);
     rgb_label = repmat(pixel_labels,[1 1 3]);
     for k = 1:nColors

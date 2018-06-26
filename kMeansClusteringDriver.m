@@ -22,6 +22,12 @@ fields = fieldnames(topLevelFolderInfo);
 plantIndexMatrix = [];
 totalSumdMatrix = [];
 timestampMatrix = [];
+c1cMatrix = []; % clusterNCount
+c2cMatrix = [];
+c3cMatrix = [];
+c4cMatrix = [];
+c5cMatrix = [];
+c6cMatrix = [];
 
 j = 1; % mod counter 
 counter = 1; % pointer to row in topLevelFolderInfo
@@ -46,10 +52,16 @@ for i=1:numel(topLevelFolderInfo) - 1
             subFolder = topLevelFolderInfo(counter).folder;
             plantIndex = extractAfter(subFolder,"6-13-17cotton/");
 
-            [sumd] = kMeansClustering(plantIndex, timestamp, k);
+            [sumd, c1c, c2c, c3c, c4c, c5c, c6c] = kMeansClustering(plantIndex, timestamp, k);
             plantIndexMatrix = [plantIndexMatrix; plantIndex];
             timestampMatrix = [timestampMatrix; timestamp];
             totalSumdMatrix = [totalSumdMatrix; sum(sumd(:))];
+            c1cMatrix = [c1cMatrix; c1c];
+            c2cMatrix = [c2cMatrix; c2c];
+            c3cMatrix = [c3cMatrix; c3c];
+            c4cMatrix = [c4cMatrix; c4c];
+            c5cMatrix = [c5cMatrix; c5c];
+            c6cMatrix = [c6cMatrix; c6c];
        
             j=j+1; 
             counter = counter +1;
@@ -65,16 +77,13 @@ for i=1:numel(topLevelFolderInfo) - 1
 end
 
 % creates table
-indexSumMatrix = [cellstr(plantIndexMatrix) num2cell(timestampMatrix) num2cell(totalSumdMatrix)]; 
+indexSumMatrix = [cellstr(plantIndexMatrix) cellstr(timestampMatrix) num2cell(totalSumdMatrix) num2cell(c1cMatrix) num2cell(c2cMatrix) num2cell(c3cMatrix) num2cell(c4cMatrix) num2cell(c5cMatrix) num2cell(c6cMatrix) ]; 
 T = cell2table(indexSumMatrix(1:end, :));
-T.Properties.VariableNames = {'Plant_Index','Timestamp', 'Best_Total_Sum_Of_Squares'}; % underscores are needed
+T.Properties.VariableNames = {'Plant_Index','Timestamp', 'Best_Total_Sum_Of_Squares', 'Cluster_1_Count', 'Cluster_2_Count', 'Cluster_3_Count', 'Cluster_4_Count', 'Cluster_5_Count', 'Cluster_6_Count'}; % underscores are needed
 filename = [num2str(k) 'clusters_totalSumOfSquares.xlsx'];
 writetable(T, filename);
 %%%
 
-% plantIndex = '613-181-01';
-% timestamp = '2017-06-14_09-40-59_1048600';
-% [sumd] = kMeansClustering(plantIndex, timestamp, 3);
 
 
 
