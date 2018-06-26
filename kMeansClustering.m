@@ -55,7 +55,7 @@ function [sumd] = kMeansClustering(plantIndex, timestamp, k)
     imshowpair(NIR, pixel_labels, 'montage');
     filename = ['algoFinal_' num2str(k) 'clusters.png'];
     whereToStore=fullfile(DirectoryPath,filename);
-    saveas(gcf, whereToStore);
+    saveas(h, whereToStore);
     %%%
     
     % needed for final image
@@ -76,7 +76,7 @@ function [sumd] = kMeansClustering(plantIndex, timestamp, k)
     imshowpair(NIR, final, 'montage'); % displays NIR and final side by side
     filename = ['final_' num2str(k) 'clusters.png']; % creating file name
     whereToStore=fullfile(DirectoryPath,filename);
-    saveas(gcf, whereToStore); % saving image
+    saveas(h, whereToStore); % saving image
     %%%    
 end
 
