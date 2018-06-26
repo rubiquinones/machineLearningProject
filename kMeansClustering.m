@@ -77,6 +77,6 @@ function [sumd] = kMeansClustering(plantIndex, timestamp, k)
     filename = ['final_' num2str(k) 'clusters.png']; % creating file name
     whereToStore=fullfile(DirectoryPath,filename);
     saveas(h, whereToStore); % saving image
-    %%%    
+    %%% 
 end
 
