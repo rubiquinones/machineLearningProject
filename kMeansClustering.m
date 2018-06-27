@@ -4,7 +4,6 @@
 % 956-270-0385
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
 function [sumd, cluster1Count, cluster2Count, cluster3Count, ...
     cluster4Count, cluster5Count, cluster6Count] = ...
     kMeansClustering(plantIndex, timestamp, k)
@@ -61,14 +60,12 @@ function [sumd, cluster1Count, cluster2Count, cluster3Count, ...
     %%%
     
     % extracting pixel count
-    for i=2:6
-        cluster1Count = sum(pixel_labels(:) == 1);
-        cluster2Count = sum(pixel_labels(:) == 2);
-        cluster3Count = sum(pixel_labels(:) == 3);
-        cluster4Count = sum(pixel_labels(:) == 4);
-        cluster5Count = sum(pixel_labels(:) == 5);
-        cluster6Count = sum(pixel_labels(:) == 6);
-    end
+    cluster1Count = sum(pixel_labels(:) == 1);
+    cluster2Count = sum(pixel_labels(:) == 2);
+    cluster3Count = sum(pixel_labels(:) == 3);
+    cluster4Count = sum(pixel_labels(:) == 4);
+    cluster5Count = sum(pixel_labels(:) == 5);
+    cluster6Count = sum(pixel_labels(:) == 6);
     %%%
     
     % processing needed for final image 

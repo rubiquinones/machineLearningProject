@@ -84,8 +84,21 @@ filename = [num2str(k) 'clusters_totalSumOfSquares.xlsx'];
 writetable(T, filename);
 %%%
 
+% portion for running accuracy ratio
+plantIndex = '613-181-01';
 plantIndex = '613-182-02';
-timestamp = '/2017-07-11_07-01-04_2040900';
+timestamp = '2017-06-15_05-42-44_1076600'; % P1 Day02
+timestamp = '2017-07-01_07-21-31_1587700'; % P1 Day18
+timestamp = '2017-07-11_07-03-13_2041000'; % P1 Day28
+timestamp = '2017-06-15_05-39-38_1076500'; % P2 Day02
+timestamp = '2017-07-01_07-18-25_1587600'; % P2 Day18
+timestamp = '2017-07-11_07-01-04_2040900'; % P2 Day28
 k = 3;
-
+% to make this clustering work for accuracy ratio, output pixel_labels and
+% binarization and change it in main function
+[sumd, c1c, c2c, c3c, c4c, c5c, c6c, pixel_labels, binarization] = kMeansClustering(plantIndex, timestamp, k);
+% binarization = ground truth, pixel_labels = relative truth
+sum(pixel_labels(:) == 1) % relative truth
+sum(binarization(:) == 1) % ground truth
+%%%
 
