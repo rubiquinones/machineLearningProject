@@ -14,7 +14,7 @@
 
 clear all;
 
-k = 2; % number of clusters
+k = 6; % number of clusters
 topLevelFolder = 'images/input/6-13-17cotton';
 filePattern = sprintf('%s/*/', topLevelFolder);
 topLevelFolderInfo = dir(filePattern);
@@ -76,7 +76,7 @@ for i=1:numel(topLevelFolderInfo) - 1
     
 end
 
-% creates table
+% creates individual table
 indexSumMatrix = [cellstr(plantIndexMatrix) cellstr(timestampMatrix) num2cell(totalSumdMatrix) num2cell(c1cMatrix) num2cell(c2cMatrix) num2cell(c3cMatrix) num2cell(c4cMatrix) num2cell(c5cMatrix) num2cell(c6cMatrix) ]; 
 T = cell2table(indexSumMatrix(1:end, :));
 T.Properties.VariableNames = {'Plant_Index','Timestamp', 'Best_Total_Sum_Of_Squares', 'Cluster_1_Count', 'Cluster_2_Count', 'Cluster_3_Count', 'Cluster_4_Count', 'Cluster_5_Count', 'Cluster_6_Count'}; % underscores are needed
@@ -84,6 +84,8 @@ filename = [num2str(k) 'clusters_totalSumOfSquares.xlsx'];
 writetable(T, filename);
 %%%
 
-
+plantIndex = '613-182-02';
+timestamp = '/2017-07-11_07-01-04_2040900';
+k = 3;
 
 
